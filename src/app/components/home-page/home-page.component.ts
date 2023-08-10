@@ -15,7 +15,7 @@ export class HomePageComponent {
 
   @ViewChild('otpForm') otpForm!: OtpFormComponent;
 
-  onSubmit() {
+  onSubmit(data: any) {
     this.otpForm.handleSubmit();
   }
 

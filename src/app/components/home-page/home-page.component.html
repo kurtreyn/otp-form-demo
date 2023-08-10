@@ -1,8 +1,8 @@
 <section class="flex-col fc-c mt-page">
   <app-otp-form
-    formTitle="OTP"
+    formTitle="OTP Input"
     formType="otp"
     #otpForm
-    (formSubmit)="onSubmit()"
+    (formSubmit)="onSubmit($event)"
   ></app-otp-form>
 </section>

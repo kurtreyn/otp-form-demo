@@ -2,7 +2,7 @@
   <div class="login-card-header">
     <h1>{{ formTitle }}</h1>
   </div>
-  <form formType="" class="login-card-form">
+  <form [formGroup]="form" formType="" class="login-card-form">
     <div class="form-item" *ngIf="formType === 'otp'">
       <input
         type="text"
