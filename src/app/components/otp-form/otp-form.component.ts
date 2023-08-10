@@ -21,8 +21,17 @@ export class OtpFormComponent implements OnInit {
 
   createForm() {
     this.form = this.formBuilder.group({
-      otpCode: new FormControl('', [Validators.required, Validators.minLength(6)])
+      txt1: new FormControl('', [Validators.minLength(1)]),
+      txt2: new FormControl('', [Validators.minLength(1)]),
+      txt3: new FormControl('', [Validators.minLength(1)]),
+      txt4: new FormControl('', [Validators.minLength(1)]),
+      txt5: new FormControl('', [Validators.minLength(1)]),
+      txt6: new FormControl('', [Validators.minLength(1)]),
     });
+  }
+
+  get otpCode() {
+    return this.form.get('otpCode');
   }
 
   public resetForm() {
@@ -32,4 +41,24 @@ export class OtpFormComponent implements OnInit {
   handleSubmit() {
     this.form_type.emit(this.form.value);
   }
+
+  handleKeyUp(event: any, prev: any, current: any, next: any) {
+    let length = current.value.length;
+    let maxLength = current.getAttribute('maxlength');
+    console.log('length', length)
+    console.log('maxLength', maxLength)
+    console.log(`prev ${prev} current ${current} next ${next}`)
+    if (length === maxLength) {
+      if (next != "") {
+        next.focus();
+      }
+    }
+    if (event.key === 'Backspace') {
+      if (prev != '') {
+        prev.focus();
+      }
+    }
+    console.log('event', event)
+  }
+
 }

@@ -1,8 +1,6 @@
 <section class="flex-col fc-c mt-page">
-  <app-otp-form
-    formTitle="OTP Input"
-    formType="otp"
-    #otpForm
-    (formSubmit)="onSubmit($event)"
-  ></app-otp-form>
+  <app-otp-input #input="ngModel" [(ngModel)]="data" />
+  <b>Entered value:</b> {{ data }}
+  <br />
+  <b>Input valid:</b> {{ input.valid }}
 </section>
