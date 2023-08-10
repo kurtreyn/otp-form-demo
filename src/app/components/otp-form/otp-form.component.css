@@ -1,0 +1,37 @@
+.frm-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+}
+
+.frm-col {
+  display: flex;
+  flex-direction: column;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 30px;
+  height: 30px;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #1e90ff;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  border: none;
+}
