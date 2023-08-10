@@ -3,30 +3,20 @@ import {
   Component,
   ElementRef,
   Input,
-  isDevMode,
   QueryList,
   ViewChildren,
 } from '@angular/core';
 import {
   AbstractControl,
   ControlValueAccessor,
-  FormArray,
-  FormControl,
   NG_VALIDATORS,
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
 } from '@angular/forms';
 
+import { OtpInputService } from '../../services/otp-input.service';
 
-function getFormArray(size: number): FormArray {
-  const arr = [];
-
-  for (let i = 0; i < size; i++) {
-    arr.push(new FormControl(''));
-  }
-  return new FormArray(arr);
-}
 
 @Component({
   selector: 'app-otp-input',
@@ -49,25 +39,22 @@ function getFormArray(size: number): FormArray {
 export class OtpInputComponent implements ControlValueAccessor, Validator {
   @Input()
   set size(size: number) {
-    this.inputs = getFormArray(size);
+    this.inputs = this.service.getFormArray(size);
     this._size = size;
   }
+  _size = 6;
+  _scheduledFocus: number = null!;
+  inputs = this.service.getFormArray(this._size);
 
   @ViewChildren('inputElement') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
 
-  _size = 6;
-  _scheduledFocus: number = null!;
+  constructor(private service: OtpInputService) { }
 
-  inputs = getFormArray(this._size);
 
   onChange?: (value: string) => void;
   onTouched?: () => void;
 
   writeValue(value: string): void {
-    if (isDevMode() && value?.length) {
-      throw new Error('Otp input is not supposed to be prefilled with data');
-    }
-
     // Reset all input values
     this.inputs.setValue(new Array(this._size).fill(''));
   }
@@ -121,22 +108,15 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
 
   handleKeyPress(e: KeyboardEvent, idx: number) {
     const isDigit = /\d/.test(e.key);
-
-    // Safari fires Cmd + V through keyPress event as well
-    // so we need to handle it here and let it through
     if (e.key === 'v' && e.metaKey) {
       return true;
     }
 
     if (isDigit && idx + 1 < this._size) {
-      // If user inputs digits & we are not on the last input we want
-      // to advance the focus
       this._scheduledFocus = idx + 1;
     }
 
     if (isDigit && this.inputs.controls[idx].value) {
-      // If user deselects an input which already has a value
-      // we want to clear it so that it doesn't have more than 1 digit
       this.inputs.controls[idx].setValue('');
     }
 
@@ -147,7 +127,6 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     e.preventDefault();
 
     if (idx !== 0) {
-      // If the target input is not the first one - ignore
       return;
     }
 
@@ -155,8 +134,6 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     const regex = new RegExp(`\\d{${this._size}}`);
 
     if (!pasteData || !regex.test(pasteData)) {
-      // If there is nothing to be pasted or the pasted data does not
-      // comply with the required format - ignore the event
       return;
     }
 
@@ -170,21 +147,14 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   }
 
   handleFocus(e: FocusEvent) {
-    // Select previously entered value to replace with a new input
     (e.target as HTMLInputElement).select();
   }
 
   focusInput(idx: number) {
-    // In order not to interfere with the input we setTimeout
-    // before advancing the focus
     setTimeout(() => this.inputEls.get(idx)?.nativeElement.focus());
   }
 
   updateWiredValue() {
-    // We want to expose the value as a plain string
-    //
-    // In order not to interfere with the input we setTimeout
-    // before advancing the focus
     setTimeout(() => this.onChange?.(this.inputs.value.join('')));
   }
 }

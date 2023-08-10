@@ -1,6 +1,5 @@
-import { Component, ViewChild, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { OtpFormComponent } from '../otp-form/otp-form.component';
 
 @Component({
   selector: 'app-home-page',
