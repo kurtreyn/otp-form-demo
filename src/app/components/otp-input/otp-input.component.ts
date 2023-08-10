@@ -25,7 +25,6 @@ function getFormArray(size: number): FormArray {
   for (let i = 0; i < size; i++) {
     arr.push(new FormControl(''));
   }
-
   return new FormArray(arr);
 }
 
@@ -51,15 +50,15 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   @Input()
   set size(size: number) {
     this.inputs = getFormArray(size);
-    this.#size = size;
+    this._size = size;
   }
 
-  @ViewChildren('inputEl') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
+  @ViewChildren('inputElement') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
 
-  #size = 6;
-  #scheduledFocus: number = null!;
+  _size = 6;
+  _scheduledFocus: number = null!;
 
-  inputs = getFormArray(this.#size);
+  inputs = getFormArray(this._size);
 
   onChange?: (value: string) => void;
   onTouched?: () => void;
@@ -70,7 +69,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     }
 
     // Reset all input values
-    this.inputs.setValue(new Array(this.#size).fill(''));
+    this.inputs.setValue(new Array(this._size).fill(''));
   }
 
   registerOnChange(fn: any): void {
@@ -90,7 +89,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl<string, string>): ValidationErrors | null {
-    if (!control.value || control.value.length < this.#size) {
+    if (!control.value || control.value.length < this._size) {
       return {
         otpInput: 'Value is incorrect',
       };
@@ -102,7 +101,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   handleKeyDown(e: KeyboardEvent, idx: number) {
     if (e.key === 'Backspace' || e.key === 'Delete') {
       if (idx > 0) {
-        this.#scheduledFocus = idx - 1;
+        this._scheduledFocus = idx - 1;
       }
     }
   }
@@ -112,11 +111,11 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   // after input event happened - execute the transition
   // otherwise inputs don't get their values filled
   handleInput() {
-    this.#updateWiredValue();
+    this.updateWiredValue();
 
-    if (this.#scheduledFocus != null) {
-      this.#focusInput(this.#scheduledFocus);
-      this.#scheduledFocus = null!;
+    if (this._scheduledFocus != null) {
+      this.focusInput(this._scheduledFocus);
+      this._scheduledFocus = null!;
     }
   }
 
@@ -129,10 +128,10 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
       return true;
     }
 
-    if (isDigit && idx + 1 < this.#size) {
+    if (isDigit && idx + 1 < this._size) {
       // If user inputs digits & we are not on the last input we want
       // to advance the focus
-      this.#scheduledFocus = idx + 1;
+      this._scheduledFocus = idx + 1;
     }
 
     if (isDigit && this.inputs.controls[idx].value) {
@@ -153,7 +152,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     }
 
     const pasteData = e.clipboardData?.getData('text');
-    const regex = new RegExp(`\\d{${this.#size}}`);
+    const regex = new RegExp(`\\d{${this._size}}`);
 
     if (!pasteData || !regex.test(pasteData)) {
       // If there is nothing to be pasted or the pasted data does not
@@ -165,8 +164,8 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
       this.inputs.controls[i].setValue(pasteData[i]);
     }
 
-    this.#focusInput(this.inputEls.length - 1);
-    this.#updateWiredValue();
+    this.focusInput(this.inputEls.length - 1);
+    this.updateWiredValue();
     this.onTouched?.();
   }
 
@@ -175,13 +174,13 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     (e.target as HTMLInputElement).select();
   }
 
-  #focusInput(idx: number) {
+  focusInput(idx: number) {
     // In order not to interfere with the input we setTimeout
     // before advancing the focus
     setTimeout(() => this.inputEls.get(idx)?.nativeElement.focus());
   }
 
-  #updateWiredValue() {
+  updateWiredValue() {
     // We want to expose the value as a plain string
     //
     // In order not to interfere with the input we setTimeout
