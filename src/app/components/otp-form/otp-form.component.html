@@ -1,0 +1,25 @@
+<div class="login-card">
+  <div class="login-card-header">
+    <h1>{{ formTitle }}</h1>
+  </div>
+  <form formType="" class="login-card-form">
+    <div class="form-item" *ngIf="formType === 'otp'">
+      <input
+        type="text"
+        placeholder="First Name"
+        formControlName="firstName"
+        id="firstNameForm"
+        autofocus
+      />
+    </div>
+
+    <button
+      class="btn btn-primary"
+      type="submit"
+      [disabled]="!form.valid"
+      (click)="handleSubmit()"
+    >
+      Submit
+    </button>
+  </form>
+</div>

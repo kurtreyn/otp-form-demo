@@ -1,3 +1,8 @@
 <section class="flex-col fc-c mt-page">
-  <app-otc-form></app-otc-form>
+  <app-otp-form
+    formTitle="OTP"
+    formType="otp"
+    #otpForm
+    (formSubmit)="onSubmit()"
+  ></app-otp-form>
 </section>

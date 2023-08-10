@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OtcFormComponent } from './otc-form.component';
+import { OtpFormComponent } from './otp-form.component';
 
-describe('OtcFormComponent', () => {
-  let component: OtcFormComponent;
-  let fixture: ComponentFixture<OtcFormComponent>;
+describe('OtpFormComponent', () => {
+  let component: OtpFormComponent;
+  let fixture: ComponentFixture<OtpFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OtcFormComponent ]
+      declarations: [ OtpFormComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(OtcFormComponent);
+    fixture = TestBed.createComponent(OtpFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
