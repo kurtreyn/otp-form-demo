@@ -23,7 +23,7 @@ import { AbstractControl, ControlValueAccessor, FormArray, FormControl, NG_VALID
 export class OtpInputComponent implements ControlValueAccessor, Validator, OnInit {
   @Input() size = 6;
   inputs!: FormArray;
-  _scheduledFocus: number | null = null;
+  scheduledFocus: number | null = null;
 
   @ViewChildren('inputElement') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
 
@@ -70,7 +70,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
   handleKeyDown(e: KeyboardEvent, idx: number): void {
     if (e.key === 'Backspace' || e.key === 'Delete') {
       if (idx > 0) {
-        this._scheduledFocus = idx - 1;
+        this.scheduledFocus = idx - 1;
       }
     }
   }
@@ -78,9 +78,9 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
   handleInput(): void {
     this.updateWiredValue();
 
-    if (this._scheduledFocus !== null) {
-      this.focusInput(this._scheduledFocus);
-      this._scheduledFocus = null;
+    if (this.scheduledFocus !== null) {
+      this.focusInput(this.scheduledFocus);
+      this.scheduledFocus = null;
     }
   }
 
@@ -91,7 +91,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
     }
 
     if (isDigit && idx + 1 < this.size) {
-      this._scheduledFocus = idx + 1;
+      this.scheduledFocus = idx + 1;
     }
 
     if (isDigit && this.inputs.controls[idx].value) {
