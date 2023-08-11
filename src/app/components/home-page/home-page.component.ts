@@ -8,4 +8,8 @@ import { Component } from '@angular/core';
 })
 export class HomePageComponent {
   otpCode = ''
+
+  onClick() {
+    console.log('otpCode: ', this.otpCode)
+  }
 }

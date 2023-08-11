@@ -5,8 +5,6 @@ import {
   Input,
   QueryList,
   ViewChildren,
-  EventEmitter,
-  Output,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -44,9 +42,8 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     this.inputs = this.service.getFormArray(size);
     this.inputSize = size;
   }
-  @Output() form_type = new EventEmitter<any>()
   inputSize = 6;
-  _scheduledFocus: number = null!;
+  setFocus: number = null!;
   inputs = this.service.getFormArray(this.inputSize);
 
   @ViewChildren('inputElement') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
@@ -91,7 +88,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   handleKeyDown(e: KeyboardEvent, idx: number) {
     if (e.key === 'Backspace' || e.key === 'Delete') {
       if (idx > 0) {
-        this._scheduledFocus = idx - 1;
+        this.setFocus = idx - 1;
       }
     }
   }
@@ -99,10 +96,10 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
 
   handleInput() {
     this.updateWiredValue();
-
-    if (this._scheduledFocus != null) {
-      this.focusInput(this._scheduledFocus);
-      this._scheduledFocus = null!;
+    console.log('inputs: ', this.inputs.value);
+    if (this.setFocus != null) {
+      this.focusInput(this.setFocus);
+      this.setFocus = null!;
     }
   }
 
@@ -113,7 +110,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     }
 
     if (isDigit && idx + 1 < this.inputSize) {
-      this._scheduledFocus = idx + 1;
+      this.setFocus = idx + 1;
     }
 
     if (isDigit && this.inputs.controls[idx].value) {

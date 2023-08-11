@@ -1,6 +1,7 @@
 <section class="flex-col fc-c mt-page">
   <app-otp-input #input="ngModel" [(ngModel)]="otpCode" />
-  <b>Entered value:</b> {{ otpCode }}
+  <b>OTP code:</b> {{ otpCode }}
   <br />
-  <b>Input valid:</b> {{ input.valid }}
+  <br />
+  <button class="btn" (click)="onClick()">Submit</button>
 </section>
