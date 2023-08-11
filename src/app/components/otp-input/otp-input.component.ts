@@ -5,6 +5,8 @@ import {
   Input,
   QueryList,
   ViewChildren,
+  EventEmitter,
+  Output,
 } from '@angular/core';
 import {
   AbstractControl,
@@ -40,11 +42,12 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   @Input()
   set size(size: number) {
     this.inputs = this.service.getFormArray(size);
-    this._size = size;
+    this.inputSize = size;
   }
-  _size = 6;
+  @Output() form_type = new EventEmitter<any>()
+  inputSize = 6;
   _scheduledFocus: number = null!;
-  inputs = this.service.getFormArray(this._size);
+  inputs = this.service.getFormArray(this.inputSize);
 
   @ViewChildren('inputElement') inputEls!: QueryList<ElementRef<HTMLInputElement>>;
 
@@ -56,7 +59,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
 
   writeValue(value: string): void {
     // Reset all input values
-    this.inputs.setValue(new Array(this._size).fill(''));
+    this.inputs.setValue(new Array(this.inputSize).fill(''));
   }
 
   registerOnChange(fn: any): void {
@@ -76,7 +79,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   }
 
   validate(control: AbstractControl<string, string>): ValidationErrors | null {
-    if (!control.value || control.value.length < this._size) {
+    if (!control.value || control.value.length < this.inputSize) {
       return {
         otpInput: 'Value is incorrect',
       };
@@ -93,10 +96,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     }
   }
 
-  // Due to iOS/iPadOS Safari bug/special behavior we are forced to
-  // schedule focus transition during keypress/keydown event and only
-  // after input event happened - execute the transition
-  // otherwise inputs don't get their values filled
+
   handleInput() {
     this.updateWiredValue();
 
@@ -112,7 +112,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
       return true;
     }
 
-    if (isDigit && idx + 1 < this._size) {
+    if (isDigit && idx + 1 < this.inputSize) {
       this._scheduledFocus = idx + 1;
     }
 
@@ -131,7 +131,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
     }
 
     const pasteData = e.clipboardData?.getData('text');
-    const regex = new RegExp(`\\d{${this._size}}`);
+    const regex = new RegExp(`\\d{${this.inputSize}}`);
 
     if (!pasteData || !regex.test(pasteData)) {
       return;
@@ -157,4 +157,6 @@ export class OtpInputComponent implements ControlValueAccessor, Validator {
   updateWiredValue() {
     setTimeout(() => this.onChange?.(this.inputs.value.join('')));
   }
+
+
 }

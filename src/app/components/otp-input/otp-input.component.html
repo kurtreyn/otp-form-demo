@@ -8,7 +8,8 @@
   (keydown)="handleKeyDown($event, i)"
   (paste)="handlePaste($event, i)"
   [formControl]="$any(input)"
-  [attr.autocomplete]="i === 0 ? 'one-time-code' : null"
+  [attr.autocomplete]="i === 0 ? 'otp' : null"
   type="text"
   inputmode="numeric"
+  formType="otp"
 />

@@ -5,9 +5,6 @@ import { FormArray, FormControl } from '@angular/forms';
   providedIn: 'root'
 })
 export class OtpInputService {
-  onChange?: (value: string) => void;
-  onTouched?: () => void;
-  constructor() { }
 
   getFormArray(size: number): FormArray {
     const arr = [];
@@ -17,4 +14,5 @@ export class OtpInputService {
     }
     return new FormArray(arr);
   }
+
 }
