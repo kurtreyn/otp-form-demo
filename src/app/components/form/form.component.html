@@ -6,7 +6,9 @@
   </div>
 
   <!-- OTP INPUT COMPONENT -->
-  <app-otp-input #input="ngModel" [(ngModel)]="otpCode" name="otpCode" />
+  <div class="otp-input-container">
+    <app-otp-input #input="ngModel" [(ngModel)]="otpCode" name="otpCode" />
+  </div>
 
   <div class="otp-info">
     <span class="text">It may take a minute to receive your code.</span>

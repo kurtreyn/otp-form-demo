@@ -1,10 +1,16 @@
+/* :host is a pseudo class selector in Angular.
+1. The display property turns the div into a flex container. 
+This enables a flex context for all its direct children.
+2. The gap property sets the gap between the children to 0.3em.
+3. The font-size property sets the font size to 24px. */
+
 :host {
   display: flex;
   gap: 0.3em;
   font-size: 24px;
 }
 
-input {
+.otp-input {
   aspect-ratio: 3/4;
   width: 2em;
   text-align: center;
@@ -13,12 +19,12 @@ input {
   border: 0.1em solid #aaa;
 }
 
-input:focus {
+.otp-input:focus {
   outline: 0;
   border-color: skyblue;
   box-shadow: 0 0 0 0.1em skyblue;
 }
 
-input:disabled {
+.otp-input:disabled {
   border-color: #eee;
 }
