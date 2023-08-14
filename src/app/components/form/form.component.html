@@ -1,0 +1,27 @@
+<form class="flex-col fc-c">
+  <div class="instructions">
+    <h2 class="std-h2">MULTI-FACTOR AUTHENTICATION</h2>
+    <span class="text">A code has been sent to your phone number.</span>
+    <span class="text">Please enter the code below to log in.</span>
+  </div>
+
+  <!-- OTP INPUT COMPONENT -->
+  <app-otp-input #input="ngModel" [(ngModel)]="otpCode" name="otpCode" />
+
+  <div class="otp-info">
+    <span class="text">It may take a minute to receive your code.</span>
+    <span class="text">Haven't received yet?</span>
+    <span class="text action-text">RESEND CODE</span>
+  </div>
+
+  <div class="button-container">
+    <button class="btn btn-back">Back</button>
+    <button
+      class="btn btn-verify"
+      [disabled]="!input.valid"
+      (click)="onSubmit()"
+    >
+      Verify
+    </button>
+  </div>
+</form>

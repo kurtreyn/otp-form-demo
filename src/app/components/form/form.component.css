@@ -1,0 +1,99 @@
+.instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+.otp-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 4rem;
+}
+
+.btn {
+  align-items: center;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 40px;
+  padding-right: 40px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-verify {
+  background-color: #318ff1;
+  color: #ffffff;
+}
+
+.btn-back {
+  background-color: #ffffff;
+  border: 2px solid #318ff1;
+  color: #000000;
+}
+
+.btn-verify:hover,
+.btn-verify:focus {
+  background-color: #16437e;
+  color: #ffffff;
+}
+
+.btn-verify:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, 0.7);
+}
+
+.btn-verify:disabled {
+  cursor: not-allowed;
+  background: #90c6f8;
+  color: #ffffff;
+}
+
+.btn-back:hover,
+.btn-back:focus {
+  background-color: #16437e;
+  color: #ffffff;
+}
+
+.btn-back:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, 0.7);
+}
+
+.btn-back:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.action-text {
+  color: #318ff1;
+  cursor: pointer;
+}
