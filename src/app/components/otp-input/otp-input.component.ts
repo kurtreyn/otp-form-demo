@@ -33,6 +33,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
 
   ngOnInit(): void {
     this.inputs = this.getFormArray(this.size);
+    console.log('initial scheduledFocus', this.scheduledFocus)
   }
 
   // getFormArray is used to create a form array of the size that is passed in
@@ -81,10 +82,15 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
   }
 
   handleInput(): void {
+    // added checkInputVal method to check the values of the inputs and move them to the left if there is an empty input
+    this.checkInputVal();
+    // original
     this.updateWiredValue();
     if (this.scheduledFocus !== null) {
       this.focusInput(this.scheduledFocus);
+      // console.log('BEFORE this.scheduledFocus', this.scheduledFocus)
       this.scheduledFocus = null;
+      // console.log('AFTER this.scheduledFocus', this.scheduledFocus)
     }
   }
 
@@ -138,5 +144,25 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
   updateWiredValue(): void {
     setTimeout(() => this.onChange?.(this.inputs.value.join('')));
   }
+
+  checkInputVal(): void {
+    const inputArr = this.inputs.value;
+
+    for (let i = 0; i < inputArr.length - 1; i++) {
+      const currentInput = inputArr[i];
+      const nextInput = inputArr[i + 1];
+
+      if (currentInput === '' && nextInput !== '') {
+        for (let j = i; j >= 0; j--) {
+          this.inputs.controls[j].setValue(inputArr[j + 1]);
+          this.inputs.controls[j + 1].setValue('');
+        }
+        this.scheduledFocus = 0; // Start focus from the beginning
+        break;
+      }
+    }
+  }
+
+
 
 }
