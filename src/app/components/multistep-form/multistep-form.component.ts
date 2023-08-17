@@ -40,9 +40,9 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     console.log('initial formStep is: ', this.formStep);
   }
 
-
-
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {
+    // TODO: unsubscribe
+  }
 
   nextStep(): void {
     console.log('nextStep() called')
@@ -58,16 +58,24 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   }
 
   previousStep(): void {
-    if (this.formStep === 1) {
-      this.multistepFormService.setStep(3);
+    if (this.formStep === 3) {
+      this.multistepFormService.setStep(2);
+      console.log('formStep is: ', this.formStep)
     } else if (this.formStep === 2) {
-      this.multistepFormService.setStep(this.formStep - 1);
+      this.multistepFormService.setStep(1);
+      console.log('formStep is: ', this.formStep)
     }
     else {
-      this.multistepFormService.setStep(this.formStep - 1);
+      return
     }
   }
 
-  submit(): void { }
+  submit(): void {
+    if (this.formStep === 2) {
+      this.multistepFormService.setStep(3);
+      // TODO: submit OTP code to BE
+      console.log('formStep is: ', this.formStep)
+    }
+  }
 
 }

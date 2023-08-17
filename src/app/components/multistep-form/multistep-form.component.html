@@ -1,8 +1,26 @@
 <div class="multistep-form-container mt-4 top-border">
   <ul class="progress-bar">
-    <li [ngClass]="formStep >= 1 ? 'active ' : 'inactive'">MFA Method</li>
-    <li [ngClass]="formStep >= 2 ? 'active' : 'inactive'">Confirm</li>
-    <li [ngClass]="formStep == 3 ? 'active' : 'inactive'">Complete</li>
+    <li
+      [ngClass]="
+        formStep >= 1 ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      MFA Method
+    </li>
+    <li
+      [ngClass]="
+        formStep >= 2 ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      Confirm
+    </li>
+    <li
+      [ngClass]="
+        formStep == 3 ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      Complete
+    </li>
   </ul>
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
@@ -46,8 +64,21 @@
         <button name="prev" class="prev action-button" (click)="previousStep()">
           Back
         </button>
-        <button name="next" class="next action-button" (click)="nextStep()">
+        <button name="next" class="next action-button" (click)="submit()">
           Next
+        </button>
+      </div>
+    </fieldset>
+  </form>
+
+  <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
+    <fieldset *ngIf="formStep == 3" class="fieldset">
+      <h2 class="fs-title">Complete Details</h2>
+      <p>Enter a value for the phone number</p>
+
+      <div class="btn-wrapper">
+        <button name="next" class="next action-button" (click)="nextStep()">
+          Done
         </button>
       </div>
     </fieldset>
