@@ -1,0 +1,55 @@
+<div class="multistep-form-container mt-4 top-border">
+  <ul class="progress-bar">
+    <li [ngClass]="formStep >= 1 ? 'active ' : 'inactive'">MFA Method</li>
+    <li [ngClass]="formStep >= 2 ? 'active' : 'inactive'">Confirm</li>
+    <li [ngClass]="formStep == 3 ? 'active' : 'inactive'">Complete</li>
+  </ul>
+
+  <form [formGroup]="methodStep" class="form-col" id="multistep-form">
+    <fieldset *ngIf="formStep == 1" class="fieldset">
+      <h2 class="fs-title">MFA Method Details</h2>
+      <p>Enter a value for the phone number</p>
+
+      <input
+        type="text"
+        formControlName="phone"
+        name="phone"
+        placeholder="Phone"
+      />
+
+      <div class="btn-wrapper">
+        <button name="prev" class="prev action-button" (click)="previousStep()">
+          Back
+        </button>
+        <button name="next" class="next action-button" (click)="nextStep()">
+          Next
+        </button>
+      </div>
+    </fieldset>
+  </form>
+
+  <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
+    <fieldset *ngIf="formStep == 2" class="fieldset">
+      <h2 class="fs-title">Confirm Details</h2>
+      <p>Enter a value for the phone number</p>
+
+      <!-- OTP INPUT COMPONENT -->
+      <div class="otp-input-container">
+        <app-otp-input
+          #input="ngModel"
+          [(ngModel)]="otpCode"
+          name="otpCode"
+          [ngModelOptions]="{ standalone: true }"
+        />
+      </div>
+      <div class="btn-wrapper">
+        <button name="prev" class="prev action-button" (click)="previousStep()">
+          Back
+        </button>
+        <button name="next" class="next action-button" (click)="nextStep()">
+          Next
+        </button>
+      </div>
+    </fieldset>
+  </form>
+</div>
