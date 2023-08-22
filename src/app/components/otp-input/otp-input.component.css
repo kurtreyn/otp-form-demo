@@ -23,8 +23,8 @@ This enables a flex context for all its direct children.
 
 :host {
   display: flex;
+  justify-content: center;
   gap: 0.3em;
-  /* font-size: 24px; */
 }
 
 .otp-input {
@@ -33,6 +33,9 @@ This enables a flex context for all its direct children.
   background: var(---primary-light) 0% 0% no-repeat padding-box;
   border-radius: 4px;
   opacity: 1;
+  color: var(---white);
+  font-size: 24px;
+  text-align: center;
 }
 
 .otp-input:focus {
@@ -43,4 +46,13 @@ This enables a flex context for all its direct children.
 
 .otp-input:disabled {
   border-color: #eee;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
 }

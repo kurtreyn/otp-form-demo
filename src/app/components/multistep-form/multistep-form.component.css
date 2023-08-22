@@ -18,7 +18,9 @@
 .multistep-form-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 351px;
+  height: 690px;
+  /* width: 100%; */
   margin-top: 100px;
   margin-bottom: 200px;
   background-color: var(---primary);
@@ -32,11 +34,12 @@
 .fieldset {
   display: flex;
   flex-direction: column;
+  border: none;
 }
 
 .top-border {
   border-top: 2px solid #000;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .input-container {
@@ -46,14 +49,15 @@
 }
 
 .stnd-input {
-  width: 90%;
+  width: 309px;
+  height: 56px;
 }
 
 .instructions {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-top: 40px;
 }
 
 .fs-title {
@@ -64,19 +68,34 @@
 
 .text {
   color: var(---white);
+  font-size: 11px;
 }
 
-.text-bold {
+.text-bold-primary {
   color: var(---white);
   text-align: left;
   letter-spacing: 0.01px;
+  font-size: 11px;
 }
 
-/* .otp-input-container {
-    display: flex;
-    gap: 0.3em;
-    font-size: 24px;
-  } */
+.text-bold-secondary {
+  color: var(---white);
+  text-align: left;
+  letter-spacing: 0.01px;
+  font-size: 11px;
+}
+
+.resend-link {
+  color: var(---secondary);
+  text-align: center;
+  letter-spacing: 0.01px;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.otp-input-container {
+  margin-top: 40px;
+}
 
 .otp-info {
   display: flex;
@@ -88,7 +107,7 @@
 .btn-wrapper {
   display: flex;
   justify-content: center;
-  margin-top: 4rem;
+  margin-top: 40px;
 }
 
 .action-button {
@@ -100,6 +119,7 @@
   margin-right: 10px;
   color: var(---white);
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .next {

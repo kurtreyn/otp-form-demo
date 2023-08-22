@@ -5,7 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class MultistepFormService {
-  private stepSource = new BehaviorSubject<string>('1');
+  private stepSource = new BehaviorSubject<string>('2');
   step = this.stepSource.asObservable();
 
 
