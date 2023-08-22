@@ -13,6 +13,7 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   confirmStep!: FormGroup;
   completeStep!: FormGroup;
   formStep!: string;
+  otpStatus!: boolean;
   otpCode!: string;
   unsubscribe!: any;
 
@@ -23,6 +24,10 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.multistepFormService.step.subscribe(step => {
       this.formStep = step;
+    });
+    this.multistepFormService.status.subscribe(status => {
+      console.log('status is: ', status)
+      this.otpStatus = status;
     });
 
     this.methodStep = this.formBuilder.group({
