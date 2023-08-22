@@ -5,7 +5,7 @@
         formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
       "
     >
-      MFA Method
+      Method
     </li>
     <li
       [ngClass]="
@@ -25,15 +25,18 @@
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep == '1'" class="fieldset">
-      <h2 class="fs-title">MFA Method Details</h2>
-      <p class="text">Enter a value for the phone number</p>
-
-      <input
-        type="text"
-        formControlName="phone"
-        name="phone"
-        placeholder="Phone"
-      />
+      <span class="text-bold">STEP 1</span>
+      <span class="text">Please provide the following information</span>
+      <div class="input-container">
+        <span class="text-bold">SMS Text Message</span>
+        <input
+          class="stnd-input"
+          type="text"
+          formControlName="phone"
+          name="phone"
+          placeholder="Cell Phone"
+        />
+      </div>
 
       <div class="btn-wrapper">
         <button name="prev" class="prev action-button" (click)="previousStep()">
