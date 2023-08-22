@@ -1,9 +1,27 @@
 .multistep-form-container {
+  ---grey2: #d1d3d4;
+  ---mtp-official-black: #000000;
+  ---mtp-near-error: #f56c1a;
+  ---tertiary: #7db7f0;
+  ---primary-light: #0a5489;
+  ---grey1: #efefef;
+  ---tertiary-light: #acd0f3;
+  ---change: #f71000;
+  ---action-dark: #2da901;
+  ---action-mtp-off: #36cf00;
+  ---primary: #042a51;
+  ---secondary: #248ff1;
+  ---white: #ffffff;
+  ---secondary-text: #666666;
+}
+
+.multistep-form-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   margin-top: 100px;
   margin-bottom: 200px;
+  background-color: var(---primary);
 }
 
 .form-col {
@@ -28,6 +46,14 @@
   margin-bottom: 4rem;
 }
 
+.fs-title {
+  color: var(---white);
+}
+
+.text {
+  color: var(---white);
+}
+
 /* .otp-input-container {
     display: flex;
     gap: 0.3em;
@@ -48,50 +74,32 @@
 }
 
 .action-button {
-  align-items: center;
-  border: 0;
-  border-radius: 100px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: inline-flex;
-  font-size: 16px;
-  font-weight: 600;
-  justify-content: center;
-  line-height: 20px;
-  max-width: 480px;
-  min-height: 40px;
-  min-width: 0px;
-  overflow: hidden;
-  padding: 0px;
-  padding-left: 40px;
-  padding-right: 40px;
-  text-align: center;
-  touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-  user-select: none;
-  -webkit-user-select: none;
-  vertical-align: middle;
+  width: 145px;
+  height: 41px;
+  border-radius: 30px;
+  opacity: 1;
   margin-left: 10px;
   margin-right: 10px;
+  color: var(---white);
+  text-transform: uppercase;
 }
 
 .next {
-  background-color: #318ff1;
-  color: #ffffff;
+  background: var(---secondary) 0% 0% no-repeat padding-box;
+  border: 2px solid var(---secondary);
 }
 
 .prev {
-  background-color: #ffffff;
-  border: 2px solid #318ff1;
-  color: #000000;
+  border: 2px solid var(---secondary);
+  background: var(---primary) 0% 0% no-repeat padding-box;
+  border-radius: 30px;
+  opacity: 1;
 }
 
 .next:hover,
 .next:focus {
-  background-color: #16437e;
-  color: #ffffff;
+  background-color: var(---secondary);
+  color: var(---white);
 }
 
 .next:active {
@@ -101,14 +109,14 @@
 
 .next:disabled {
   cursor: not-allowed;
-  background: #90c6f8;
+  background: var(---tertiary);
   color: #ffffff;
 }
 
 .prev:hover,
 .prev:focus {
-  background-color: #16437e;
-  color: #ffffff;
+  background-color: var(---tertiary);
+  color: var(---white);
 }
 
 .prev:active {
@@ -123,7 +131,7 @@
 }
 
 .action-text {
-  color: #318ff1;
+  color: var(---white);
   cursor: pointer;
 }
 
@@ -131,62 +139,61 @@
 .progress-bar {
   margin-bottom: 30px;
   overflow: hidden;
-  /*CSS counters to number the steps*/
   counter-reset: step;
+  display: flex;
+  justify-content: center;
 }
 
 .step-indicator {
   list-style-type: none;
-  color: #000;
+  color: var(---white);
   text-transform: uppercase;
   font-size: 9px;
   width: 33.33%;
-  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
-  letter-spacing: 1px;
+  z-index: 1;
 }
 
-.progress-bar .step-indicator:before {
+.step-indicator:before {
   content: counter(step);
   counter-increment: step;
-  width: 24px;
-  height: 24px;
-  line-height: 26px;
+  width: 19px;
+  height: 19px;
   display: flex;
   justify-content: center;
+  align-items: center;
   font-size: 12px;
-  color: #333;
-  background: white;
   border-radius: 25px;
   margin: 0 auto 10px auto;
+  border: 1.5px solid var(---secondary);
 }
 
 /*progressbar connectors*/
-.progress-bar .step-indicator:after {
+.step-indicator:after {
   content: "";
   width: 100%;
-  height: 2px;
-  background: white;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, white 0 5px, #0000 0 7px);
   position: absolute;
-  left: -50%;
+  left: -40%;
   top: 9px;
   z-index: -1; /*put it behind the numbers*/
 }
 
-.progress-bar .step-indicator:first-child:after {
-  /*connector not needed before the first step*/
+.step-indicator:first-child:after {
   content: none;
 }
 
-/*marking active/completed steps green*/
-/*The number of the step and the connector before it = green*/
-.progress-bar .step-indicator.active:before,
-.progress-bar .step-indicator.active:after {
-  background: #318ff1;
-  color: white;
+.step-indicator.active:before,
+.step-indicator.active:after {
+  background: var(---secondary);
+  color: var(---white);
 }
 
-.progress-bar .step-indicator.inactive:before {
-  background: #16437e;
-  color: #fff;
+.step-indicator.inactive:before {
+  background: var(---primary);
+  color: var(---white);
 }

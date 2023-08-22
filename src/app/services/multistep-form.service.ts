@@ -5,17 +5,17 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class MultistepFormService {
-  private stepSource = new BehaviorSubject<number>(1);
+  private stepSource = new BehaviorSubject<string>('1');
   step = this.stepSource.asObservable();
 
 
   constructor() { }
 
-  setStep(step: number): void {
+  setStep(step: string): void {
     this.stepSource.next(step);
   }
 
-  getStep(): number {
+  getStep(): string {
     return this.stepSource.getValue();
   }
 }

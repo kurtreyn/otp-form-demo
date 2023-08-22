@@ -2,21 +2,21 @@
   <ul class="progress-bar">
     <li
       [ngClass]="
-        formStep >= 1 ? 'active step-indicator' : 'inactive step-indicator'
+        formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
       "
     >
       MFA Method
     </li>
     <li
       [ngClass]="
-        formStep >= 2 ? 'active step-indicator' : 'inactive step-indicator'
+        formStep === '2' ? 'active step-indicator' : 'inactive step-indicator'
       "
     >
       Confirm
     </li>
     <li
       [ngClass]="
-        formStep == 3 ? 'active step-indicator' : 'inactive step-indicator'
+        formStep === '3' ? 'active step-indicator' : 'inactive step-indicator'
       "
     >
       Complete
@@ -24,9 +24,9 @@
   </ul>
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep == 1" class="fieldset">
+    <fieldset *ngIf="formStep == '1'" class="fieldset">
       <h2 class="fs-title">MFA Method Details</h2>
-      <p>Enter a value for the phone number</p>
+      <p class="text">Enter a value for the phone number</p>
 
       <input
         type="text"
@@ -47,12 +47,12 @@
   </form>
 
   <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep == 2" class="fieldset">
+    <fieldset *ngIf="formStep == '2'" class="fieldset">
       <h2 class="fs-title">Confirm Details</h2>
-      <p>Enter a value for the phone number</p>
+      <p class="text">Enter a value for the phone number</p>
 
-      <!-- OTP INPUT COMPONENT -->
       <div class="otp-input-container">
+        <!-- OTP INPUT COMPONENT -->
         <app-otp-input
           #input="ngModel"
           [(ngModel)]="otpCode"
@@ -60,6 +60,7 @@
           [ngModelOptions]="{ standalone: true }"
         />
       </div>
+
       <div class="btn-wrapper">
         <button name="prev" class="prev action-button" (click)="previousStep()">
           Back
@@ -72,9 +73,9 @@
   </form>
 
   <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep == 3" class="fieldset">
+    <fieldset *ngIf="formStep == '3'" class="fieldset">
       <h2 class="fs-title">Complete Details</h2>
-      <p>Enter a value for the phone number</p>
+      <p class="text">Enter a value for the phone number</p>
 
       <div class="btn-wrapper">
         <button name="next" class="next action-button" (click)="nextStep()">

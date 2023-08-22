@@ -12,7 +12,7 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   methodStep!: FormGroup;
   confirmStep!: FormGroup;
   completeStep!: FormGroup;
-  formStep!: number;
+  formStep!: string;
   otpCode!: string;
   unsubscribe!: any;
 
@@ -46,23 +46,23 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
 
   nextStep(): void {
     console.log('nextStep() called')
-    if (this.formStep === 1) {
-      this.multistepFormService.setStep(2);
+    if (this.formStep === '1') {
+      this.multistepFormService.setStep('2');
       console.log('formStep is: ', this.formStep)
-    } else if (this.formStep === 2) {
-      this.multistepFormService.setStep(3);
+    } else if (this.formStep === '2') {
+      this.multistepFormService.setStep('3');
     }
     else {
-      this.multistepFormService.setStep(1);
+      this.multistepFormService.setStep('1');
     }
   }
 
   previousStep(): void {
-    if (this.formStep === 3) {
-      this.multistepFormService.setStep(2);
+    if (this.formStep === '3') {
+      this.multistepFormService.setStep('2');
       console.log('formStep is: ', this.formStep)
-    } else if (this.formStep === 2) {
-      this.multistepFormService.setStep(1);
+    } else if (this.formStep === '2') {
+      this.multistepFormService.setStep('1');
       console.log('formStep is: ', this.formStep)
     }
     else {
@@ -71,8 +71,8 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   }
 
   submit(): void {
-    if (this.formStep === 2) {
-      this.multistepFormService.setStep(3);
+    if (this.formStep === '2') {
+      this.multistepFormService.setStep('3');
       // TODO: submit OTP code to BE
       console.log('formStep is: ', this.formStep)
     }
