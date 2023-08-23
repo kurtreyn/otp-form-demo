@@ -4,7 +4,8 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class MultistepFormService {
+export class MfaBusinessService {
+
   private stepSource = new BehaviorSubject<string>('1');
   private successStatus = new BehaviorSubject<string>('');
   step = this.stepSource.asObservable();

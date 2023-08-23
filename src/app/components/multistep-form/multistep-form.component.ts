@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { MultistepFormService } from '../../services/multistep-form.service';
+import { MfaBusinessService } from 'src/app/services/mfa-business.service';
 
 @Component({
   selector: 'app-multistep-form',
@@ -21,15 +21,15 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   unsubscribe!: any;
   isValidFlg: boolean = true;
 
-  constructor(private formBuilder: FormBuilder, private multistepFormService: MultistepFormService) {
+  constructor(private formBuilder: FormBuilder, private mfaBusinessService: MfaBusinessService) {
 
   }
 
   ngOnInit(): void {
-    this.multistepFormService.step.subscribe(step => {
+    this.mfaBusinessService.step.subscribe(step => {
       this.formStep = step;
     });
-    this.multistepFormService.status.subscribe(status => {
+    this.mfaBusinessService.status.subscribe(status => {
       console.log('status is: ', status)
       this.otpStatus = status;
     });
@@ -61,7 +61,7 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
 
   nextStep(): void {
     if (this.formStep === '1') {
-      this.multistepFormService.setStep('2');
+      this.mfaBusinessService.setStep('2');
       const phoneInput = this.methodStep.get('phone')?.value;
       this.formattedPhone = phoneInput;
       this.phoneInput = phoneInput.replace(/\D/g, '');
@@ -69,19 +69,19 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
       console.log('phoneInput is: ', this.phoneInput)
       console.log('formStep is: ', this.formStep)
     } else if (this.formStep === '2') {
-      this.multistepFormService.setStep('3');
+      this.mfaBusinessService.setStep('3');
     }
     else {
-      this.multistepFormService.setStep('1');
+      this.mfaBusinessService.setStep('1');
     }
   }
 
   previousStep(): void {
     if (this.formStep === '3') {
-      this.multistepFormService.setStep('2');
+      this.mfaBusinessService.setStep('2');
       console.log('formStep is: ', this.formStep)
     } else if (this.formStep === '2') {
-      this.multistepFormService.setStep('1');
+      this.mfaBusinessService.setStep('1');
       console.log('formStep is: ', this.formStep)
     }
     else {
@@ -93,10 +93,10 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     if (this.formStep === '2') {
       // TODO: submit OTP code to BE
       if (this.otpCode === this.fakeValidOtpCode) {
-        this.multistepFormService.setStatus('success');
-        this.multistepFormService.setStep('3');
+        this.mfaBusinessService.setStatus('success');
+        this.mfaBusinessService.setStep('3');
       } else {
-        this.multistepFormService.setStatus('error');
+        this.mfaBusinessService.setStatus('error');
       }
       console.log('formStep is: ', this.formStep)
       console.log('otpCode is: ', this.otpCode)
