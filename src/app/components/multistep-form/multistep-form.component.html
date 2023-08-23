@@ -61,6 +61,14 @@
         >A verification code will be sent to your phone number. Please enter
         that code below.</span
       >
+      <div class="error-container" *ngIf="otpStatus === 'error'">
+        <img
+          src="assets/images/error.png"
+          alt="error"
+          class="status-icon-error"
+        />
+        <span class="error-text">Invalid 6-Digit Authentication Code</span>
+      </div>
 
       <div class="otp-input-container">
         <!-- OTP INPUT COMPONENT -->
@@ -92,8 +100,20 @@
 
   <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep === '3'" class="fieldset">
-      <span class="text-bold-primary">STEP 3</span>
-      <span class="text">text</span>
+      <div class="status-container">
+        <img
+          src="assets/images/green-checkmark.png"
+          alt="checkmark"
+          class="status-icon-success"
+        />
+        <span class="status-text-success">Successfully activated</span>
+      </div>
+
+      <div class="instructions">
+        <span class="text"
+          >Verification codes will now be sent to 502-123-7689 for logging in.
+        </span>
+      </div>
 
       <div class="btn-wrapper">
         <button name="next" class="next action-button" (click)="nextStep()">

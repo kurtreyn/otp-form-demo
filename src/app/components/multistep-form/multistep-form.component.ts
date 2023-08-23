@@ -13,8 +13,9 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   confirmStep!: FormGroup;
   completeStep!: FormGroup;
   formStep!: string;
-  otpStatus!: boolean;
+  otpStatus!: string;
   otpCode!: string;
+  fakeValidOtpCode = '123456';
   unsubscribe!: any;
 
   constructor(private formBuilder: FormBuilder, private multistepFormService: MultistepFormService) {
@@ -50,7 +51,6 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   }
 
   nextStep(): void {
-    console.log('nextStep() called')
     if (this.formStep === '1') {
       this.multistepFormService.setStep('2');
       console.log('formStep is: ', this.formStep)
@@ -77,9 +77,16 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
 
   submit(): void {
     if (this.formStep === '2') {
-      this.multistepFormService.setStep('3');
       // TODO: submit OTP code to BE
+      if (this.otpCode === this.fakeValidOtpCode) {
+        this.multistepFormService.setStatus('success');
+        this.multistepFormService.setStep('3');
+      } else {
+        this.multistepFormService.setStatus('error');
+      }
       console.log('formStep is: ', this.formStep)
+      console.log('otpCode is: ', this.otpCode)
+      console.log('otpStatus is: ', this.otpStatus)
     }
   }
 

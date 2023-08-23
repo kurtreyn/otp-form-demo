@@ -48,6 +48,41 @@
   margin-top: 30px;
 }
 
+.status-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.status-text-success {
+  color: var(---action-mtp-off);
+  text-align: center;
+}
+
+.status-icon-success {
+  width: 36px;
+}
+
+.status-icon-error {
+  width: 12px;
+  margin-right: 9px;
+}
+
+.error-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 22px;
+  margin-bottom: 22px;
+}
+
+.error-text {
+  color: var(---mtp-near-error);
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
+}
+
 .stnd-input {
   width: 309px;
   height: 56px;
