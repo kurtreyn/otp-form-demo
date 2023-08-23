@@ -118,9 +118,4 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     field.value = formattedNumber;
   }
 
-  unformatPhoneNo(field: any) {
-    let phoneNumDigits = field.value.replace(/\D/g, '');
-    field.value = phoneNumDigits;
-  }
-
 }
