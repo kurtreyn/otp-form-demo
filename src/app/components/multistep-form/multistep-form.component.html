@@ -35,6 +35,8 @@
           formControlName="phone"
           name="phone"
           placeholder="Cell Phone"
+          maxlength="14"
+          (input)="validatePhoneNo($event.target)"
         />
       </div>
 

@@ -16,7 +16,10 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
   otpStatus!: string;
   otpCode!: string;
   fakeValidOtpCode = '123456';
+  phoneInput!: string;
+  formattedPhone!: string;
   unsubscribe!: any;
+  isValidFlg: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private multistepFormService: MultistepFormService) {
 
@@ -44,15 +47,26 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     });
 
     console.log('initial formStep is: ', this.formStep);
+    console.log('initial phoneInput is: ', this.phoneInput)
   }
+
 
   ngOnDestroy(): void {
     // TODO: unsubscribe
   }
 
+  // get methodStp() {
+  //   return this.methodStep.controls;
+  // }
+
   nextStep(): void {
     if (this.formStep === '1') {
       this.multistepFormService.setStep('2');
+      const phoneInput = this.methodStep.get('phone')?.value;
+      this.formattedPhone = phoneInput;
+      this.phoneInput = phoneInput.replace(/\D/g, '');
+      console.log('formattedPhone is: ', this.formattedPhone);
+      console.log('phoneInput is: ', this.phoneInput)
       console.log('formStep is: ', this.formStep)
     } else if (this.formStep === '2') {
       this.multistepFormService.setStep('3');
@@ -88,6 +102,25 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
       console.log('otpCode is: ', this.otpCode)
       console.log('otpStatus is: ', this.otpStatus)
     }
+  }
+
+  validatePhoneNo(field: any) {
+    let phoneNumDigits = field.value.replace(/\D/g, '');
+
+    this.isValidFlg = (phoneNumDigits.length == 0 || phoneNumDigits.length == 10);
+
+    let formattedNumber = phoneNumDigits;
+    if (phoneNumDigits.length >= 6)
+      formattedNumber = '(' + phoneNumDigits.substring(0, 3) + ') ' + phoneNumDigits.substring(3, 6) + '-' + phoneNumDigits.substring(6);
+    else if (phoneNumDigits.length >= 3)
+      formattedNumber = '(' + phoneNumDigits.substring(0, 3) + ') ' + phoneNumDigits.substring(3);
+
+    field.value = formattedNumber;
+  }
+
+  unformatPhoneNo(field: any) {
+    let phoneNumDigits = field.value.replace(/\D/g, '');
+    field.value = phoneNumDigits;
   }
 
 }
