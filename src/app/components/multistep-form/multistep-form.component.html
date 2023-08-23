@@ -22,158 +22,95 @@
       Complete
     </li>
   </ul>
-  <form
-    *ngFor="let step of steps; let i = index"
-    [formGroup]="step.formGroup"
-    (ngSubmit)="onFormSubmit(step, i)"
-    class="form-step"
-    [hidden]="formStep !== step.stepNumber.toString()"
-  >
-    <ng-container *ngIf="step.type === 'input'">
-      <label [for]="step.controlName">{{ step.label }}</label>
-      <input
-        [type]="step.inputType"
-        [id]="step.controlName"
-        [formControlName]="step.controlName"
-        (input)="step.validationFn($event.target)"
-        class="form-control"
-      />
-    </ng-container>
-    <ng-container *ngIf="step.type === 'button'">
-      <button [type]="step.buttonType" class="btn btn-primary">
-        {{ step.label }}
-      </button>
-    </ng-container>
+
+  <form [formGroup]="mfaForm" class="form-col" id="multistep-form">
+    <fieldset class="fieldset">
+      <ng-container *ngIf="formStep === '1'">
+        <span class="text-bold-primary">STEP 1</span>
+        <span class="text">Please provide the following information</span>
+        <div class="input-container">
+          <span class="text-bold-secondary">SMS Text Message</span>
+          <input
+            class="stnd-input"
+            type="text"
+            formControlName="phone"
+            name="phone"
+            placeholder="Cell Phone"
+            maxlength="14"
+            (input)="validatePhoneNo($event.target)"
+          />
+        </div>
+        <div class="btn-container">
+          <button name="next" class="next action-button" (click)="nextStep()">
+            Next
+          </button>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="formStep === '2'">
+        <span class="text-bold-primary">STEP 2</span>
+        <span class="text"
+          >A verification code will be sent to your phone number. Please enter
+          that code below.</span
+        >
+        <div class="error-container" *ngIf="otpStatus === 'error'">
+          <img
+            src="assets/images/error.png"
+            alt="error"
+            class="status-icon-error"
+          />
+          <span class="error-text">Invalid 6-Digit Authentication Code</span>
+        </div>
+
+        <div class="otp-input-container">
+          <!-- OTP INPUT COMPONENT -->
+          <cdux-mfa-otp-input
+            #input="ngModel"
+            [(ngModel)]="otpCode"
+            name="otpCode"
+            [ngModelOptions]="{ standalone: true }"
+          ></cdux-mfa-otp-input>
+        </div>
+
+        <div class="instructions">
+          <span class="text"
+            >It may take a minute to receive your code. Haven't received it yet?
+            <span class="resend-link">resend code</span></span
+          >
+        </div>
+        <div class="btn-container">
+          <button
+            name="prev"
+            class="prev-btn action-button"
+            (click)="previousStep()"
+          >
+            Back
+          </button>
+          <button name="next" class="next action-button" (click)="submit()">
+            Next
+          </button>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="formStep === '3'">
+        <div class="status-container">
+          <img
+            src="assets/images/green-checkmark.png"
+            alt="checkmark"
+            class="status-icon-success"
+          />
+          <span class="status-text-success">Successfully activated</span>
+        </div>
+
+        <div class="instructions">
+          <span class="text"
+            >Verification codes will now be sent to 502-123-7689 for logging in.
+          </span>
+        </div>
+        <div class="btn-container">
+          <button name="next" class="next action-button" (click)="nextStep()">
+            Done
+          </button>
+        </div>
+      </ng-container>
+    </fieldset>
   </form>
 </div>
-
-<!-- <div class="multistep-form-container">
-  <ul class="progress-bar">
-    <li
-      [ngClass]="
-        formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Method
-    </li>
-    <li
-      [ngClass]="
-        formStep === '2' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Confirm
-    </li>
-    <li
-      [ngClass]="
-        formStep === '3' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Complete
-    </li>
-  </ul>
-
-  <form [formGroup]="methodStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep === '1'" class="fieldset">
-      <span class="text-bold-primary">STEP 1</span>
-      <span class="text">Please provide the following information</span>
-      <div class="input-container">
-        <span class="text-bold-secondary">SMS Text Message</span>
-        <input
-          class="stnd-input"
-          type="text"
-          formControlName="phone"
-          name="phone"
-          placeholder="Cell Phone"
-          maxlength="14"
-          (input)="validatePhoneNo($event.target)"
-        />
-      </div>
-
-      <div class="btn-container">
-        <button
-          name="prev"
-          class="prev action-button"
-          *ngIf="formStep != '1'"
-          (click)="previousStep()"
-        >
-          Back
-        </button>
-        <button name="next" class="next action-button" (click)="nextStep()">
-          Next
-        </button>
-      </div>
-    </fieldset>
-  </form>
-
-  <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep === '2'" class="fieldset">
-      <span class="text-bold-primary">STEP 2</span>
-      <span class="text"
-        >A verification code will be sent to your phone number. Please enter
-        that code below.</span
-      >
-      <div class="error-container" *ngIf="otpStatus === 'error'">
-        <img
-          src="assets/images/error.png"
-          alt="error"
-          class="status-icon-error"
-        />
-        <span class="error-text">Invalid 6-Digit Authentication Code</span>
-      </div>
-
-      <div class="otp-input-container">
-        <cdux-mfa-otp-input
-          #input="ngModel"
-          [(ngModel)]="otpCode"
-          name="otpCode"
-          [ngModelOptions]="{ standalone: true }"
-        ></cdux-mfa-otp-input>
-      </div>
-
-      <div class="instructions">
-        <span class="text"
-          >It may take a minute to receive your code. Haven't received it yet?
-          <span class="resend-link">resend code</span></span
-        >
-      </div>
-
-      <div class="btn-container">
-        <button
-          name="prev-btn"
-          class="prev-btn action-button"
-          (click)="previousStep()"
-        >
-          Back
-        </button>
-        <button name="next" class="next action-button" (click)="submit()">
-          Next
-        </button>
-      </div>
-    </fieldset>
-  </form>
-
-  <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
-    <fieldset *ngIf="formStep === '3'" class="fieldset">
-      <div class="status-container">
-        <img
-          src="assets/images/green-checkmark.png"
-          alt="checkmark"
-          class="status-icon-success"
-        />
-        <span class="status-text-success">Successfully activated</span>
-      </div>
-
-      <div class="instructions">
-        <span class="text"
-          >Verification codes will now be sent to 502-123-7689 for logging in.
-        </span>
-      </div>
-
-      <div class="btn-container">
-        <button name="next" class="next action-button" (click)="nextStep()">
-          Done
-        </button>
-      </div>
-    </fieldset>
-  </form>
-</div> -->
