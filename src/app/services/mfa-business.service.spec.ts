@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { OtpInputService } from './otp-input.service';
+import { MfaBusinessService } from './mfa-business.service';
 
-describe('OtpInputService', () => {
-  let service: OtpInputService;
+describe('MfaBusinessService', () => {
+  let service: MfaBusinessService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(OtpInputService);
+    service = TestBed.inject(MfaBusinessService);
   });
 
   it('should be created', () => {

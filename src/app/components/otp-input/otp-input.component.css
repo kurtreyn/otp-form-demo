@@ -4,19 +4,38 @@ This enables a flex context for all its direct children.
 2. The gap property sets the gap between the children to 0.3em.
 3. The font-size property sets the font size to 24px. */
 
+.otp-input {
+  ---grey2: #d1d3d4;
+  ---mtp-official-black: #000000;
+  ---mtp-near-error: #f56c1a;
+  ---tertiary: #7db7f0;
+  ---primary-light: #0a5489;
+  ---grey1: #efefef;
+  ---tertiary-light: #acd0f3;
+  ---change: #f71000;
+  ---action-dark: #2da901;
+  ---action-mtp-off: #36cf00;
+  ---primary: #042a51;
+  ---secondary: #248ff1;
+  ---white: #ffffff;
+  ---secondary-text: #666666;
+}
+
 :host {
   display: flex;
+  justify-content: center;
   gap: 0.3em;
-  font-size: 24px;
 }
 
 .otp-input {
-  aspect-ratio: 3/4;
-  width: 2em;
-  text-align: center;
+  width: 40px;
+  height: 55px;
+  background: var(---primary-light) 0% 0% no-repeat padding-box;
   border-radius: 4px;
-  font-size: inherit;
-  border: 0.1em solid #aaa;
+  opacity: 1;
+  color: var(---white);
+  font-size: 24px;
+  text-align: center;
 }
 
 .otp-input:focus {
@@ -27,4 +46,13 @@ This enables a flex context for all its direct children.
 
 .otp-input:disabled {
   border-color: #eee;
+}
+
+.ng-valid[required],
+.ng-valid.required {
+  border-left: 5px solid #42a948; /* green */
+}
+
+.ng-invalid:not(form) {
+  border-left: 5px solid #a94442; /* red */
 }

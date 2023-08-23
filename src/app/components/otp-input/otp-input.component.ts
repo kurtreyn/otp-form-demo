@@ -46,7 +46,7 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
   }
 
 
-  /* 
+  /*
   *registerOnChange, registerOnTouched, writeValue, & setDisabledState are used to save *the functions into the props
   *
   */
@@ -162,7 +162,5 @@ export class OtpInputComponent implements ControlValueAccessor, Validator, OnIni
       }
     }
   }
-
-
 
 }
