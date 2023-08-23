@@ -22,6 +22,55 @@
       Complete
     </li>
   </ul>
+  <form
+    *ngFor="let step of steps; let i = index"
+    [formGroup]="step.formGroup"
+    (ngSubmit)="onFormSubmit(step, i)"
+    class="form-step"
+    [hidden]="formStep !== step.stepNumber.toString()"
+  >
+    <ng-container *ngIf="step.type === 'input'">
+      <label [for]="step.controlName">{{ step.label }}</label>
+      <input
+        [type]="step.inputType"
+        [id]="step.controlName"
+        [formControlName]="step.controlName"
+        (input)="step.validationFn($event.target)"
+        class="form-control"
+      />
+    </ng-container>
+    <ng-container *ngIf="step.type === 'button'">
+      <button [type]="step.buttonType" class="btn btn-primary">
+        {{ step.label }}
+      </button>
+    </ng-container>
+  </form>
+</div>
+
+<!-- <div class="multistep-form-container">
+  <ul class="progress-bar">
+    <li
+      [ngClass]="
+        formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      Method
+    </li>
+    <li
+      [ngClass]="
+        formStep === '2' ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      Confirm
+    </li>
+    <li
+      [ngClass]="
+        formStep === '3' ? 'active step-indicator' : 'inactive step-indicator'
+      "
+    >
+      Complete
+    </li>
+  </ul>
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep === '1'" class="fieldset">
@@ -73,7 +122,6 @@
       </div>
 
       <div class="otp-input-container">
-        <!-- OTP INPUT COMPONENT -->
         <cdux-mfa-otp-input
           #input="ngModel"
           [(ngModel)]="otpCode"
@@ -128,4 +176,4 @@
       </div>
     </fieldset>
   </form>
-</div>
+</div> -->

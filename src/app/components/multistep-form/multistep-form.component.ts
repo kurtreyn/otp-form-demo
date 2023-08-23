@@ -9,20 +9,50 @@ import { MfaBusinessService } from 'src/app/services/mfa-business.service';
   styleUrls: ['./multistep-form.component.css']
 })
 export class MultistepFormComponent implements OnInit, OnDestroy {
-  methodStep!: FormGroup;
-  confirmStep!: FormGroup;
-  completeStep!: FormGroup;
+  steps: any[] = []; // Define an array to hold form steps dynamically
   formStep!: string;
   otpStatus!: string;
   otpCode!: string;
   fakeValidOtpCode = '123456';
-  phoneInput!: string;
-  formattedPhone!: string;
-  unsubscribe!: any;
   isValidFlg: boolean = true;
 
   constructor(private formBuilder: FormBuilder, private mfaBusinessService: MfaBusinessService) {
-
+    this.steps = [
+      {
+        type: 'input',
+        formGroup: this.formBuilder.group({
+          phone: ['', Validators.required]
+        }),
+        stepNumber: 1,
+        label: 'Phone Number:',
+        inputType: 'text',
+        controlName: 'phone',
+        validationFn: (target: any) => this.validatePhoneNo(target),
+        buttonType: ''
+      },
+      {
+        type: 'input',
+        formGroup: this.formBuilder.group({
+          confirm: ['', Validators.required]
+        }),
+        stepNumber: 2,
+        label: 'Enter OTP Code:',
+        inputType: 'text',
+        controlName: 'confirm',
+        validationFn: () => { }, // No validation in this step
+        buttonType: ''
+      },
+      {
+        type: 'button',
+        formGroup: null,
+        stepNumber: 3,
+        label: 'Submit',
+        inputType: '',
+        controlName: '',
+        validationFn: () => { }, // No validation for buttons
+        buttonType: 'submit'
+      }
+    ];
   }
 
   ngOnInit(): void {
@@ -33,79 +63,36 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
       console.log('status is: ', status)
       this.otpStatus = status;
     });
-
-    this.methodStep = this.formBuilder.group({
-      phone: ['', Validators.required]
-    });
-
-    this.confirmStep = this.formBuilder.group({
-      confirm: ['', Validators.required]
-    });
-
-    this.completeStep = this.formBuilder.group({
-      complete: ['', Validators.required]
-    });
-
-    console.log('initial formStep is: ', this.formStep);
-    console.log('initial phoneInput is: ', this.phoneInput)
   }
-
 
   ngOnDestroy(): void {
     // TODO: unsubscribe
   }
 
-  // get methodStp() {
-  //   return this.methodStep.controls;
-  // }
+  onFormSubmit(step: any, index: number): void {
+    if (index === 0) {
+      this.nextStep();
+    } else if (index === 1) {
+      this.submit();
+    }
+  }
 
   nextStep(): void {
     if (this.formStep === '1') {
       this.mfaBusinessService.setStep('2');
-      const phoneInput = this.methodStep.get('phone')?.value;
-      this.formattedPhone = phoneInput;
-      this.phoneInput = phoneInput.replace(/\D/g, '');
-      console.log('formattedPhone is: ', this.formattedPhone);
-      console.log('phoneInput is: ', this.phoneInput)
-      console.log('formStep is: ', this.formStep)
     } else if (this.formStep === '2') {
-      this.mfaBusinessService.setStep('3');
-    }
-    else {
-      this.mfaBusinessService.setStep('1');
-    }
-  }
-
-  previousStep(): void {
-    if (this.formStep === '3') {
-      this.mfaBusinessService.setStep('2');
-      console.log('formStep is: ', this.formStep)
-    } else if (this.formStep === '2') {
-      this.mfaBusinessService.setStep('1');
-      console.log('formStep is: ', this.formStep)
-    }
-    else {
-      return
+      // Handle logic for moving to the next step
     }
   }
 
   submit(): void {
     if (this.formStep === '2') {
-      // TODO: submit OTP code to BE
-      if (this.otpCode === this.fakeValidOtpCode) {
-        this.mfaBusinessService.setStatus('success');
-        this.mfaBusinessService.setStep('3');
-      } else {
-        this.mfaBusinessService.setStatus('error');
-      }
-      console.log('formStep is: ', this.formStep)
-      console.log('otpCode is: ', this.otpCode)
-      console.log('otpStatus is: ', this.otpStatus)
+      // Handle logic for submitting OTP
     }
   }
 
-  validatePhoneNo(field: any) {
-    let phoneNumDigits = field.value.replace(/\D/g, '');
+  validatePhoneNo(target: any) {
+    let phoneNumDigits = target.value.replace(/\D/g, '');
 
     this.isValidFlg = (phoneNumDigits.length == 0 || phoneNumDigits.length == 10);
 
@@ -115,7 +102,6 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     else if (phoneNumDigits.length >= 3)
       formattedNumber = '(' + phoneNumDigits.substring(0, 3) + ') ' + phoneNumDigits.substring(3);
 
-    field.value = formattedNumber;
+    target.value = formattedNumber;
   }
-
 }

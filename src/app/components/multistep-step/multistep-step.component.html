@@ -1,0 +1,32 @@
+<form [formGroup]="stepData" class="form-col" id="multistep-form">
+  <fieldset *ngFor="let step of steps; let i = index">
+    <span class="text-bold-primary">STEP {{ formStep + 1 }}</span>
+    <span class="text">{{ step.label }}</span>
+
+    <div class="input-container" *ngFor="let controlName of controlNames">
+      <span class="text-bold-secondary">{{
+        getControlLabel(controlName)
+      }}</span>
+      <input
+        class="stnd-input"
+        type="text"
+        [formControlName]="controlName"
+        [placeholder]="getControlPlaceholder(controlName)"
+        *ngIf="stepData.controls[controlName]"
+      />
+    </div>
+  </fieldset>
+</form>
+<div class="btn-container">
+  <button
+    name="prev-btn"
+    class="prev-btn action-button"
+    *ngIf="formStep !== 0"
+    (click)="previousStep()"
+  >
+    Back
+  </button>
+  <button name="next" class="next action-button" (click)="nextStep()">
+    {{ formStep === steps.length - 1 ? "Done" : "Next" }}
+  </button>
+</div>
