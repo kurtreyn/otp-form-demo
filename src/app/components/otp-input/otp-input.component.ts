@@ -3,7 +3,7 @@ import { AbstractControl, ControlValueAccessor, FormArray, FormControl, NG_VALID
 
 
 @Component({
-  selector: 'app-otp-input',
+  selector: 'cdux-mfa-otp-input',
   templateUrl: './otp-input.component.html',
   styleUrls: ['./otp-input.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,

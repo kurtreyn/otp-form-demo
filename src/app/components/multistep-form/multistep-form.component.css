@@ -15,6 +15,22 @@
   ---secondary-text: #666666;
 }
 
+/* ---- GENERAL STYLING ---- */
+
+.form-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---- INPUT COMPONENTS ---- */
+
+.stnd-input {
+  width: 309px;
+  height: 56px;
+}
+
+/* ---- CONTAINERS ---- */
+
 .multistep-form-container {
   display: flex;
   flex-direction: column;
@@ -26,9 +42,20 @@
   background-color: var(---primary);
 }
 
-.form-col {
+/* .multistep-form-container {
   display: flex;
   flex-direction: column;
+  width: 100%;
+  background-color: var(---primary);
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-bottom: 50px;
+} */
+
+.btn-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
 .fieldset {
@@ -55,18 +82,15 @@
   margin-top: 40px;
 }
 
-.status-text-success {
-  color: var(---action-mtp-off);
-  text-align: center;
+.instructions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 40px;
 }
 
-.status-icon-success {
-  width: 36px;
-}
-
-.status-icon-error {
-  width: 12px;
-  margin-right: 9px;
+.otp-input-container {
+  margin-top: 40px;
 }
 
 .error-container {
@@ -76,23 +100,11 @@
   margin-bottom: 22px;
 }
 
-.error-text {
-  color: var(---mtp-near-error);
+/* ---- TEXT STYLING ---- */
+
+.status-text-success {
+  color: var(---action-mtp-off);
   text-align: center;
-  font-size: 11px;
-  font-weight: bold;
-}
-
-.stnd-input {
-  width: 309px;
-  height: 56px;
-}
-
-.instructions {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 40px;
 }
 
 .fs-title {
@@ -128,21 +140,36 @@
   text-transform: uppercase;
 }
 
-.otp-input-container {
-  margin-top: 40px;
+.error-text {
+  color: var(---mtp-near-error);
+  text-align: center;
+  font-size: 11px;
+  font-weight: bold;
 }
+
+.action-text {
+  color: var(---white);
+  cursor: pointer;
+}
+
+/* ---- IMAGE/ICON STYLING ---- */
+
+.status-icon-success {
+  width: 36px;
+}
+
+.status-icon-error {
+  width: 12px;
+  margin-right: 9px;
+}
+
+/* ---- BUTTONS ---- */
 
 .otp-info {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-top: 4rem;
-}
-
-.btn-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-top: 40px;
 }
 
 .action-button {
@@ -162,11 +189,9 @@
   border: 2px solid var(---secondary);
 }
 
-.prev {
+.prev-btn {
+  background: var(---primary) 0% 0% no-repeat padding-box !important;
   border: 2px solid var(---secondary);
-  background: var(---primary) 0% 0% no-repeat padding-box;
-  border-radius: 30px;
-  opacity: 1;
 }
 
 .next:hover,
@@ -186,27 +211,24 @@
   color: #ffffff;
 }
 
-.prev:hover,
-.prev:focus {
+.prev-btn:hover,
+.prev-btn:focus {
   background-color: var(---tertiary);
   color: var(---white);
 }
 
-.prev:active {
+.prev-btn:active {
   background: #09223b;
   color: rgb(255, 255, 255, 0.7);
 }
 
-.prev:disabled {
+.prev-btn:disabled {
   cursor: not-allowed;
   background: rgba(0, 0, 0, 0.08);
   color: rgba(0, 0, 0, 0.3);
 }
 
-.action-text {
-  color: var(---white);
-  cursor: pointer;
-}
+/* ---- PROGRESS BAR ---- */
 
 .progress-bar {
   margin-bottom: 30px;
@@ -244,7 +266,8 @@
   border: 1.5px solid var(---secondary);
 }
 
-/*progressbar connectors*/
+/* ---- PROGRESS BAR CONNECTORS ---- */
+
 .step-indicator:after {
   content: "";
   width: 68%;
