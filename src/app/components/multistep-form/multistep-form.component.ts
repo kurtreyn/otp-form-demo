@@ -9,9 +9,7 @@ import { MfaBusinessService } from 'src/app/services/mfa-business.service';
   styleUrls: ['./multistep-form.component.css']
 })
 export class MultistepFormComponent implements OnInit, OnDestroy {
-  methodStep!: FormGroup;
-  confirmStep!: FormGroup;
-  completeStep!: FormGroup;
+  mfaForm!: FormGroup;
   formStep!: string;
   otpStatus!: string;
   otpCode!: string;
@@ -34,16 +32,8 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
       this.otpStatus = status;
     });
 
-    this.methodStep = this.formBuilder.group({
-      phone: ['', Validators.required]
-    });
-
-    this.confirmStep = this.formBuilder.group({
-      confirm: ['', Validators.required]
-    });
-
-    this.completeStep = this.formBuilder.group({
-      complete: ['', Validators.required]
+    this.mfaForm = this.formBuilder.group({
+      phone: ['', Validators.required],
     });
 
     console.log('initial formStep is: ', this.formStep);
@@ -55,14 +45,11 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     // TODO: unsubscribe
   }
 
-  // get methodStp() {
-  //   return this.methodStep.controls;
-  // }
 
   nextStep(): void {
     if (this.formStep === '1') {
       this.mfaBusinessService.setStep('2');
-      const phoneInput = this.methodStep.get('phone')?.value;
+      const phoneInput = this.mfaForm.get('phone')?.value;
       this.formattedPhone = phoneInput;
       this.phoneInput = phoneInput.replace(/\D/g, '');
       console.log('formattedPhone is: ', this.formattedPhone);
