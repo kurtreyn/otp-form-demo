@@ -1,27 +1,29 @@
 <div class="multistep-form-container">
-  <ul class="progress-bar">
-    <li
-      [ngClass]="
-        formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Method
-    </li>
-    <li
-      [ngClass]="
-        formStep === '2' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Confirm
-    </li>
-    <li
-      [ngClass]="
-        formStep === '3' ? 'active step-indicator' : 'inactive step-indicator'
-      "
-    >
-      Complete
-    </li>
-  </ul>
+  <div class="progress-bar-container">
+    <ul class="progress-bar">
+      <li
+        [ngClass]="
+          formStep === '1' ? 'active step-indicator' : 'inactive step-indicator'
+        "
+      >
+        Method
+      </li>
+      <li
+        [ngClass]="
+          formStep === '2' ? 'active step-indicator' : 'inactive step-indicator'
+        "
+      >
+        Confirm
+      </li>
+      <li
+        [ngClass]="
+          formStep === '3' ? 'active step-indicator' : 'inactive step-indicator'
+        "
+      >
+        Complete
+      </li>
+    </ul>
+  </div>
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep === '1'" class="fieldset">
