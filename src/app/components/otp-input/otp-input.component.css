@@ -61,10 +61,20 @@ This enables a flex context for all its direct children.
   :host {
     width: 100%;
   }
+
+  .otp-input {
+    width: 30px;
+    height: 45px;
+  }
 }
 
 @media screen and (max-width: 390px) {
   :host {
     width: 100%;
+  }
+
+  .otp-input {
+    width: 30px;
+    height: 45px;
   }
 }
