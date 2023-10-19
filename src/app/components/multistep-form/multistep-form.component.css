@@ -347,3 +347,24 @@
     border: solid 1px blue;
   }
 }
+
+@media screen and (max-width: 490px) {
+  .otp-input-container {
+    max-width: 100%;
+    border: solid 1px red;
+  }
+
+  .fieldset {
+    width: fit-content;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 1px green;
+  }
+
+  .form-col {
+    max-width: fit-content;
+    border: solid 1px blue;
+  }
+}
