@@ -302,6 +302,10 @@
   .fieldset {
     max-width: 100%;
   }
+
+  .form-col {
+    max-width: fit-content;
+  }
 }
 
 @media screen and (max-width: 390px) {
@@ -311,5 +315,9 @@
 
   .fieldset {
     max-width: 100%;
+  }
+
+  .form-col {
+    max-width: fit-content;
   }
 }
