@@ -46,13 +46,11 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
       complete: ['', Validators.required]
     });
 
-    console.log('initial formStep is: ', this.formStep);
-    console.log('initial phoneInput is: ', this.phoneInput)
   }
 
 
   ngOnDestroy(): void {
-    // TODO: unsubscribe
+    this.mfaBusinessService.status.subscribe().unsubscribe();
   }
 
   resendCode() {
