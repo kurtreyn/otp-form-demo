@@ -23,6 +23,7 @@ This enables a flex context for all its direct children.
 
 :host {
   display: flex;
+  width: 100%;
   justify-content: center;
   gap: 0.3em;
 }
