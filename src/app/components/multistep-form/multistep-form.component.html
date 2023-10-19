@@ -27,8 +27,11 @@
 
   <form [formGroup]="methodStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep === '1'" class="fieldset">
-      <span class="text-bold-primary">STEP 1</span>
-      <span class="text">Please provide the following information</span>
+      <div class="text-container">
+        <span class="text-bold-primary">STEP 1</span>
+        <span class="text">Please provide the following information</span>
+      </div>
+
       <div class="input-container">
         <span class="text-bold-secondary">SMS Text Message</span>
         <input
@@ -60,11 +63,14 @@
 
   <form [formGroup]="confirmStep" class="form-col" id="multistep-form">
     <fieldset *ngIf="formStep === '2'" class="fieldset">
-      <span class="text-bold-primary">STEP 2</span>
-      <span class="text"
-        >A verification code will be sent to your phone number. Please enter
-        that code below.</span
-      >
+      <div class="text-container">
+        <span class="text-bold-primary">STEP 2</span>
+        <span class="text"
+          >A verification code will be sent to your phone number. Please enter
+          that code below.</span
+        >
+      </div>
+
       <div class="error-container" *ngIf="otpStatus === 'error'">
         <img
           src="assets/images/error.png"
