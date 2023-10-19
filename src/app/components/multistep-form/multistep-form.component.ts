@@ -55,9 +55,9 @@ export class MultistepFormComponent implements OnInit, OnDestroy {
     // TODO: unsubscribe
   }
 
-  // get methodStp() {
-  //   return this.methodStep.controls;
-  // }
+  resendCode() {
+    alert('Sorry, this feature is not available yet.')
+  }
 
   nextStep(): void {
     if (this.formStep === '1') {
