@@ -23,7 +23,6 @@ This enables a flex context for all its direct children.
 
 :host {
   display: flex;
-  width: 100%;
   justify-content: center;
   gap: 0.3em;
 }
@@ -56,4 +55,16 @@ This enables a flex context for all its direct children.
 
 .ng-invalid:not(form) {
   border-left: 5px solid #a94442; /* red */
+}
+
+@media screen and (max-width: 375px) {
+  :host {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  :host {
+    width: 100%;
+  }
 }

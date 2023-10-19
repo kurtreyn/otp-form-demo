@@ -293,3 +293,23 @@
   background: var(---primary);
   color: var(---white);
 }
+
+@media screen and (max-width: 375px) {
+  .otp-input-container {
+    max-width: 100%;
+  }
+
+  .fieldset {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .otp-input-container {
+    max-width: 100%;
+  }
+
+  .fieldset {
+    max-width: 100%;
+  }
+}
